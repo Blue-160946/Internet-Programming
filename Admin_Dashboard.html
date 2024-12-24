@@ -11,7 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
-  
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -24,9 +24,18 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
   <!-- -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesDashboard.css">
 </head>
 
 <body>
@@ -85,7 +94,7 @@
 
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Overview</h1>
+      <div class="h3 mb-3 text-gray-800">ภาพรวม</div>
     </div>
     <div class="row">
       <div class="col-xl-3 col-md-6 mb-4">
@@ -138,7 +147,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-start shadow h-100 py-2">
           <div class="card-body">
@@ -155,59 +163,220 @@
           </div>
         </div>
       </div>
-      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Summary</h1>
+
+      <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <div class="h3 mb-3 text-gray-800">สรุป</div>
       </div>
       <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
-            <!-- Card Header -->
-            <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                <h6 class="m-0 fw-bold text-primary">ยอดการขายแต่ละหมวดหมู่</h6>
+          <!-- Card Header -->
+          <div class="card-header py-3 d-flex align-items-center justify-content-between">
+            <h6 class="m-0 fw-bold text-primary">ยอดการขายแต่ละหมวดหมู่</h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="chart-pie pt-4 pb-2">
+              <div id="myPieChart"></div>
             </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-pie pt-4 pb-2">
-                  <div id="myPieChart"></div>
-                </div>
-                <div class="mt-4 text-center small">
-                    <span class="me-2">
-                        <i class="bi bi-circle-fill text-primary"></i> Direct
-                    </span>
-                    <span class="me-2">
-                        <i class="bi bi-circle-fill text-success"></i> Social
-                    </span>
-                    <span class="me-2">
-                        <i class="bi bi-circle-fill text-info"></i> Referral
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-8 col-lg-5">
-      <div class="card shadow mb-4">
-        <!-- Card Header -->
-        <div class="card-header py-3 d-flex align-items-center justify-content-between">
-          <h6 class="m-0 fw-bold text-primary">แนวโน้มยอดขาย</h6>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              เลือกช่วงเวลา
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#" onclick="updateChart('daily')">รายวัน</a></li>
-              <li><a class="dropdown-item" href="#" onclick="updateChart('monthly')">รายเดือน</a></li>
-              <li><a class="dropdown-item" href="#" onclick="updateChart('yearly')">รายปี</a></li>
-            </ul>
           </div>
         </div>
-        <!-- Card Body -->
-        <div class="card-body">
-          <div id="myLineChart"></div> <!-- แสดงกราฟเส้น -->
+      </div>
+      <div class="col-xl-8 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header -->
+          <div class="card-header py-3 d-flex align-items-center justify-content-between">
+            <h6 class="m-0 fw-bold text-primary">แนวโน้มยอดขาย</h6>
+            <div id="selectedPeriod" style="margin-top: 10px; font-weight: bold;">ข้อมูลแบบ: รายวัน</div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                เลือกช่วงเวลา
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#" data-type="daily">รายวัน</a></li>
+                <li><a class="dropdown-item" href="#" data-type="monthly">รายเดือน</a></li>
+                <li><a class="dropdown-item" href="#" data-type="yearly">รายปี</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div id="salesTrendChart"></div> <!-- แสดงกราฟเส้น -->
+          </div>
         </div>
       </div>
-    </div>
 
-  <script src="chart-pie-1.js"></script>
-  <script src="chart-line-1.js"></script>
+      <div class="container mt-4">
+        <div class="h3 mb-3 text-gray-800">Top 5 สินค้าขายดี</div>
+
+        <ul class="list-group">
+          <!-- Item 1 -->
+          <li class="list-group-item d-flex justify-content-between align-items-center product-item shadow">
+            สินค้า A
+            <span class="badge bg-primary rounded-pill">ยอดขาย: 500 ชิ้น</span>
+          </li>
+          <!-- Item 2 -->
+          <li class="list-group-item d-flex justify-content-between align-items-center product-item shadow">
+            สินค้า B
+            <span class="badge bg-success rounded-pill">ยอดขาย: 450 ชิ้น</span>
+          </li>
+          <!-- Item 3 -->
+          <li class="list-group-item d-flex justify-content-between align-items-center product-item shadow">
+            สินค้า C
+            <span class="badge bg-info rounded-pill">ยอดขาย: 400 ชิ้น</span>
+          </li>
+          <!-- Item 4 -->
+          <li class="list-group-item d-flex justify-content-between align-items-center product-item shadow">
+            สินค้า D
+            <span class="badge bg-warning rounded-pill">ยอดขาย: 350 ชิ้น</span>
+          </li>
+          <!-- Item 5 -->
+          <li class="list-group-item d-flex justify-content-between align-items-center product-item shadow">
+            สินค้า E
+            <span class="badge bg-danger rounded-pill">ยอดขาย: 300 ชิ้น</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <div class="h3 mb-0 text-gray-800">คำสั่งซื้อ</div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  รอดำเนินการ
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">0
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="bi bi-hourglass fs-1 text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  กำลังจัดส่ง
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">0
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="bi bi-truck fs-1 text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  สำเร็จแล้ว
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">0
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="bi bi-check-circle fs-1 text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  คำขอคืนเงิน
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">0
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="bi bi-cash fs-1 text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-4">
+        <div class="h3 mb-3 text-gray-800">รายละเอียดสินค้าทั้งหมด</div>
+        <table id="productTable" class="display table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="https://via.placeholder.com/50" alt="Product" class="img-fluid"></td>
+              <td>001</td>
+              <td>Product A</td>
+              <td>Electronics</td>
+              <td>500 ฿</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td><img src="https://via.placeholder.com/50" alt="Product" class="img-fluid"></td>
+              <td>002</td>
+              <td>Product B</td>
+              <td>Clothing</td>
+              <td>200 ฿</td>
+              <td>100</td>
+            </tr>
+            <tr>
+              <td><img src="https://via.placeholder.com/50" alt="Product" class="img-fluid"></td>
+              <td>003</td>
+              <td>Product C</td>
+              <td>Home Appliances</td>
+              <td>1000 ฿</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td><img src="https://via.placeholder.com/50" alt="Product" class="img-fluid"></td>
+              <td>004</td>
+              <td>Product D</td>
+              <td>Sports</td>
+              <td>750 ฿</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td><img src="https://via.placeholder.com/50" alt="Product" class="img-fluid"></td>
+              <td>005</td>
+              <td>Product E</td>
+              <td>Books</td>
+              <td>350 ฿</td>
+              <td>150</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+      <script src="chart-pie-1.js"></script>
+      <script src="chart-line-1.js"></script>
+      <script src="DataTable.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,150 @@
+.page-header {
+  background: linear-gradient(
+      rgba(240, 140, 177, 0.427),
+      rgba(240, 140, 177, 0.427)
+    ),
+    url(../img/crochet-1.jpg) center center no-repeat;
+  background-size: cover;
+}
+
+/* ปรับแต่งรายการสินค้า */
+.product-item {
+  border-left: 5px solid #1cc88a; /* สีเขียวด้านซ้าย */
+  margin-bottom: 10px; /* เว้นระยะห่างระหว่างรายการ */
+  padding: 15px; /* เพิ่ม padding เพื่อให้รายการดูสะอาดตา */
+  transition: transform 0.3s ease-in-out; /* เพิ่มเอฟเฟกต์การเคลื่อนไหว */
+}
+
+.product-item:hover {
+  background-color: #f8f9fa; /* เปลี่ยนสีพื้นหลังเมื่อเลื่อนเมาส์ไปที่รายการ */
+  transform: translateX(10px); /* เคลื่อนที่ไปทางขวา */
+}
+
+/* ปรับแต่ง badge */
+.badge {
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 8px 12px;
+}
+
+/* ปรับแต่งสีของ badge */
+.badge.bg-primary {
+  background-color: #4e73df !important; /* สีฟ้าของ badge */
+}
+
+.badge.bg-success {
+  background-color: #1cc88a !important; /* สีเขียวของ badge */
+}
+
+.badge.bg-info {
+  background-color: #36b9cc !important; /* สีฟ้าอ่อนของ badge */
+}
+
+.badge.bg-warning {
+  background-color: #f6c23e !important; /* สีเหลืองของ badge */
+}
+
+.badge.bg-danger {
+  background-color: #e74a3b !important; /* สีแดงของ badge */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 15px;
+}
+
+th {
+  background-color: #4e73df;
+  color: white;
+  font-weight: bold;
+}
+
+td {
+  background-color: #f8f9fc;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover td {
+  background-color: #f1f3f7;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.img-fluid {
+  max-width: 50px;
+  border-radius: 5px;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
+
+.table thead th {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Pagination styles */
+.pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Styling Table */
+table.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.dataTable th, table.dataTable td {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Styling Image inside Table */
+table.dataTable td img {
+  width: 50px;
+  height: auto;
+}
+
+/* Style for the header */
+h3.text-center {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Custom styling for table rows and cells */
+table.dataTable thead {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* เพิ่มระยะห่างระหว่างช่องค้นหากับตาราง */
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 20px; /* ระยะห่างด้านล่างของช่องค้นหา */
+}
+
+/* เพิ่มระยะห่างระหว่างช่องค้นหากับตาราง */
+#productTable {
+  margin-top: 20px; /* ระยะห่างด้านบนของตาราง */
+}
+

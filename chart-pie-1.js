@@ -1,5 +1,5 @@
-// ข้อมูลและการตั้งค่าสำหรับ ApexCharts Pie Chart
-var options = {
+ // ข้อมูลและการตั้งค่าสำหรับ ApexCharts Pie Chart
+ var optionsPie = {
   chart: {
     type: 'donut', // ใช้ donut chart
     height: 350
@@ -8,7 +8,7 @@ var options = {
   labels: ['Direct', 'Social', 'Referral'], // ชื่อหมวดหมู่
   colors: ['#4e73df', '#1cc88a', '#36b9cc'], // สีของกราฟ
   legend: {
-    show: false, // แสดง legend
+    show: true, // แสดง legend
     position: 'bottom' // ตำแหน่ง legend
   },
   tooltip: {
@@ -28,6 +28,7 @@ var options = {
   }
 };
 
+
 // สร้างกราฟและแสดงผลใน id "myPieChart"
-var chart = new ApexCharts(document.querySelector("#myPieChart"), options);
-chart.render();
+var chartPie = new ApexCharts(document.querySelector("#myPieChart"), optionsPie);
+chartPie.render();
